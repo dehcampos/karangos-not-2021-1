@@ -49,7 +49,9 @@ export default function KarangosList() {
   const history = useHistory()
 
   useEffect(() => {
+    
     getData()
+
   }, []) // Quando a lista de dependências é um vetor vazio, o useEffect()
          // é executado apenas uma vez, no carregamento inicial do componente
 
@@ -163,7 +165,7 @@ export default function KarangosList() {
       headerAlign: 'center', 
       flex: true,
       renderCell: params => (
-        <IconButton aria-label="editar">
+        <IconButton aria-label="editar" onClick={() => history.push(`/edit/${params.id}`)}>
           <EditIcon />
         </IconButton>
       )
