@@ -45,24 +45,25 @@ export default function KarangosList() {
   const [sbOpen, setSbOpen] = useState(false)
   const [sbSeverity, setSbSeverity] = useState('success')
   const [sbMessage, setSbMessage] = useState('Exclusão realizada com sucesso.')
-  
+  const [gridLoading, setGridLoading] = useState(false)
+    
   const history = useHistory()
 
   useEffect(() => {
-    
-    getData()
-
+    setTimeout(() => getData(), 100)
   }, []) // Quando a lista de dependências é um vetor vazio, o useEffect()
          // é executado apenas uma vez, no carregamento inicial do componente
 
   async function getData() {
     try { // tenta buscar os dados
+      setGridLoading(true)
       let response = await axios.get('https://api.faustocintra.com.br/karangos?by=marca,modelo')
       if(response.data.length > 0) setKarangos(response.data)
     }
     catch(error) {
       console.error(error)
     }
+    setGridLoading(false)
   }
 
   async function deleteItem() {
@@ -196,7 +197,7 @@ export default function KarangosList() {
         </MuiAlert>
       </Snackbar>
       
-      <h1>Listagem de Karangos</h1>
+      <h1 onClick={() => getData()}>Listagem de Karangos</h1>
       <Toolbar className={classes.toolbar}>
         <Button color="secondary" variant="contained" size="large" 
           startIcon={<AddBoxIcon />} onClick={() => history.push('/new')}>
@@ -204,7 +205,7 @@ export default function KarangosList() {
         </Button>
       </Toolbar>
       <Paper elevation={4}>
-        <DataGrid className={classes.dataGrid} rows={karangos} columns={columns} pageSize={10} autoHeight={true} disableSelectionOnClick={true} />
+        <DataGrid className={classes.dataGrid} rows={karangos} columns={columns} pageSize={10} autoHeight={true} loading={gridLoading} disableSelectionOnClick={true} />
       </Paper>
     </>
   )
