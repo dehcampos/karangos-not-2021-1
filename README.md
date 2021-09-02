@@ -1,2 +1,2 @@
-# karangos-not-2021-1
-Projeto Karangos (front-end em React) do 4º semestre noturno da Fatec Franca 2021/1
+# TCC-Mat-2021-2
+TCC (front-end em React) do 5º semestre Matutino da Fatec Franca 2021/1
